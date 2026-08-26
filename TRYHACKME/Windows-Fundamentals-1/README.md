@@ -123,5 +123,3 @@ Coming soon.
 ![Lab Completion Certificate](Certificate/windows-fundamentals-1-certificate.png)
 
 If the certificate has not yet been added, replace the image with:
-
-`[ADD CERTIFICATE IMAGE]`
