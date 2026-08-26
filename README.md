@@ -42,7 +42,7 @@ This repository is my public learning journal and technical knowledge base as I 
 
 | Platform | Completed Labs |
 |---|---:|
-| TryHackMe | 0 |
+| TryHackMe | 1 |
 | Hack The Box | 0 |
 | LetsDefend | 0 |
 | Other | 0 |
