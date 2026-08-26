@@ -38,6 +38,7 @@ This repository is my public learning journal and technical knowledge base as I 
 
 ---
 
+<!-- AUTO-GENERATED:LAB-PROGRESS:START -->
 ## 📊 Lab Progress
 
 | **Platform** | **Completed Labs** |
@@ -48,6 +49,7 @@ This repository is my public learning journal and technical knowledge base as I 
 | Other | 0 |
 
 *Automatically updated from documented labs in this repository.*
+<!-- AUTO-GENERATED:LAB-PROGRESS:END -->
 ---
 
 ## 🗂️ Repository Structure
