@@ -15,8 +15,8 @@ LAB-NAME/
 └── Certificate/
 ```
 
+<!-- AUTO-GENERATED:LABS:START -->
 ## 🧪 Labs
 
-Labs will be added here as they are completed.
-
-> No lab is listed until its documentation has been created.
+_No labs documented yet._
+<!-- AUTO-GENERATED:LABS:END -->
