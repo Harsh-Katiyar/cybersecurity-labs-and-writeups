@@ -40,15 +40,14 @@ This repository is my public learning journal and technical knowledge base as I 
 
 ## 📊 Lab Progress
 
-| Platform | Completed Labs |
-|---|---:|
-| TryHackMe | 1 |
+| **Platform** | **Completed Labs** |
+| ------------ | -----------------: |
+| TryHackMe | 0 |
 | Hack The Box | 0 |
 | LetsDefend | 0 |
 | Other | 0 |
 
-This table is updated as new labs are completed.
-
+*Automatically updated from documented labs in this repository.*
 ---
 
 ## 🗂️ Repository Structure
