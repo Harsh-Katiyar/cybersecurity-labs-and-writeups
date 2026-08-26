@@ -37,7 +37,6 @@ This repository is my public learning journal and technical knowledge base as I 
 `Cybersecurity` `SOC Analyst` `Blue Team` `Windows Security` `Networking` `SIEM` `Log Analysis` `Incident Response` `Threat Detection` `Threat Hunting` `Digital Forensics` `Phishing Analysis`
 
 ---
-
 <!-- AUTO-GENERATED:LAB-PROGRESS:START -->
 ## 📊 Lab Progress
 
@@ -50,6 +49,32 @@ This repository is my public learning journal and technical knowledge base as I 
 
 *Automatically updated from documented labs in this repository.*
 <!-- AUTO-GENERATED:LAB-PROGRESS:END -->
+
+---
+
+<!-- AUTO-GENERATED:LABS:START -->
+## 🧪 Labs
+
+### TryHackMe
+
+_No labs documented yet._
+
+### Hack The Box
+
+_No labs documented yet._
+
+### LetsDefend
+
+_No labs documented yet._
+
+### Other
+
+_No labs documented yet._
+<!-- AUTO-GENERATED:LABS:END -->
+
+---
+
+## 🗂️ Repository Structure
 ---
 
 ## 🗂️ Repository Structure
