@@ -45,7 +45,7 @@ This repository is my public learning journal and technical knowledge base as I 
 | TryHackMe | 1 |
 | Hack The Box | 0 |
 | LetsDefend | 0 |
-| Other | 1 |
+| Other | 0 |
 
 *Automatically updated from documented labs in this repository.*
 <!-- AUTO-GENERATED:LAB-PROGRESS:END -->
@@ -69,7 +69,7 @@ _No labs documented yet._
 
 ### Other
 
-- [LAB TEMPLATE](OTHER/_LAB-TEMPLATE/)
+_No labs documented yet._
 
 <!-- AUTO-GENERATED:LABS:END -->
 

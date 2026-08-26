@@ -18,6 +18,6 @@ LAB-NAME/
 <!-- AUTO-GENERATED:LABS:START -->
 ## 🧪 Labs
 
-- [LAB TEMPLATE](_LAB-TEMPLATE/)
+_No labs documented yet._
 
 <!-- AUTO-GENERATED:LABS:END -->
