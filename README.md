@@ -85,15 +85,15 @@ Where appropriate, expanded articles are published on Medium and linked from the
 
 ## 🌐 Portfolio
 
-**Cybersecurity Portfolio:** [Add your portfolio link here]
+**Cybersecurity Portfolio:** https://harshkatiyar.freehosting.dev/
 
 ## ✍️ Medium
 
-**Medium:** [Add your Medium profile here]
+**Medium:** https://medium.com/@HarshKatiyar
 
 ## 💼 LinkedIn
 
-**LinkedIn:** [Add your LinkedIn profile here]
+**LinkedIn:** https://www.linkedin.com/in/harshkatiyar5556
 
 ---
 
