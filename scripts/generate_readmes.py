@@ -10,14 +10,16 @@ import re
 
 ROOT = Path(__file__).resolve().parent.parent
 
+# IMPORTANT:
+# These folder names MUST match your repository exactly.
 PLATFORMS = {
     "TRYHACKME": "TryHackMe",
-    "HACKTHEBOX": "Hack The Box",
+    "HTB": "Hack The Box",
     "LETSDEFEND": "LetsDefend",
     "OTHER": "Other",
 }
 
-# Number of latest labs shown in README sections
+# Number of latest labs displayed in README files
 LATEST_LABS_TO_SHOW = 2
 
 
@@ -33,13 +35,14 @@ LABS_END = "<!-- AUTO-GENERATED:LABS:END -->"
 
 
 # ============================================================
-# HELPERS
+# NAME / LINK HELPERS
 # ============================================================
 
 def clean_name(name):
     """
     Convert folder names into readable lab names.
     """
+
     return (
         name
         .replace("-", " ")
@@ -50,8 +53,10 @@ def clean_name(name):
 
 def github_link(path):
     """
-    Create a URL-safe relative GitHub link.
+    Convert a repository path into a URL-safe
+    relative GitHub link.
     """
+
     relative = path.relative_to(ROOT)
 
     return "/".join(
@@ -60,15 +65,20 @@ def github_link(path):
     )
 
 
+# ============================================================
+# GIT DATE
+# ============================================================
+
 def get_last_commit_timestamp(path):
     """
-    Get the latest Git commit timestamp associated
-    with a lab folder.
+    Get the timestamp of the most recent Git commit
+    affecting this lab folder.
 
     This is used to determine the latest labs.
     """
 
     try:
+
         result = subprocess.run(
             [
                 "git",
@@ -89,26 +99,35 @@ def get_last_commit_timestamp(path):
             return int(value)
 
     except Exception:
+
         pass
 
     return 0
 
 
+# ============================================================
+# FIND LABS
+# ============================================================
+
 def find_labs(platform_folder):
     """
-    Find completed labs inside ONE platform only.
-
-    A folder counts as a lab when it contains:
-        README.md
+    Find documented labs INSIDE ONE PLATFORM ONLY.
 
     Example:
 
     LETSDEFEND/
-        README.md               <- ignored
-        Phishing/
-            README.md           <- lab
-        Malware/
-            README.md           <- lab
+    ├── README.md
+    ├── Phishing Investigation/
+    │   └── README.md
+    └── Malware Investigation/
+        └── README.md
+
+    Result:
+
+    Phishing Investigation
+    Malware Investigation
+
+    HTB/ and TRYHACKME/ are completely independent.
     """
 
     labs = []
@@ -118,18 +137,13 @@ def find_labs(platform_folder):
 
     for item in platform_folder.iterdir():
 
-        # Only directories are considered labs
+        # Only folders can be labs
         if not item.is_dir():
             continue
 
-        # Platform README itself is not inside a lab directory,
-        # but this check protects against unusual structures.
-        if item.name.lower() == "readme.md":
-            continue
-
+        # A lab must contain README.md
         lab_readme = item / "README.md"
 
-        # A documented README means the lab is completed/documented.
         if not lab_readme.exists():
             continue
 
@@ -141,7 +155,7 @@ def find_labs(platform_folder):
             }
         )
 
-    # Newest first
+    # Newest labs first
     labs.sort(
         key=lambda lab: (
             lab["timestamp"],
@@ -154,7 +168,7 @@ def find_labs(platform_folder):
 
 
 # ============================================================
-# SECTION REPLACER
+# REPLACE README SECTION
 # ============================================================
 
 def replace_section(
@@ -163,9 +177,6 @@ def replace_section(
     end_marker,
     new_section,
 ):
-    """
-    Replace only the section between the two markers.
-    """
 
     pattern = (
         re.escape(start_marker)
@@ -173,12 +184,17 @@ def replace_section(
         + re.escape(end_marker)
     )
 
-    if not re.search(pattern, content, flags=re.DOTALL):
+    if not re.search(
+        pattern,
+        content,
+        flags=re.DOTALL,
+    ):
+
         raise RuntimeError(
-            f"Could not find README markers:\n\n"
+            "\nCould not find README markers:\n\n"
             f"{start_marker}\n"
             f"{end_marker}\n\n"
-            f"Please make sure both markers exist."
+            "Make sure BOTH markers exist in the README."
         )
 
     return re.sub(
@@ -191,23 +207,35 @@ def replace_section(
 
 
 # ============================================================
-# ROOT README — LAB PROGRESS
+# ROOT README — PROGRESS
 # ============================================================
 
 def generate_progress_section(counts):
 
     lines = [
+
         PROGRESS_START,
+
         "## 📊 Lab Progress",
+
         "",
+
         "| **Platform** | **Completed Labs** |",
+
         "| ------------ | -----------------: |",
+
         f"| TryHackMe | {counts['TRYHACKME']} |",
-        f"| Hack The Box | {counts['HACKTHEBOX']} |",
+
+        f"| Hack The Box | {counts['HTB']} |",
+
         f"| LetsDefend | {counts['LETSDEFEND']} |",
+
         f"| Other | {counts['OTHER']} |",
+
         "",
+
         "*Automatically updated from documented labs in this repository.*",
+
         PROGRESS_END,
     ]
 
@@ -221,31 +249,44 @@ def generate_progress_section(counts):
 def generate_root_labs_section(all_labs):
 
     lines = [
+
         LABS_START,
+
         "## 🧪 Labs",
+
         "",
     ]
 
     for platform_key, platform_name in PLATFORMS.items():
 
-        lines.append(f"### {platform_name}")
+        lines.append(
+            f"### {platform_name}"
+        )
+
         lines.append("")
 
         labs = all_labs[platform_key]
 
         if not labs:
 
-            lines.append("_No labs documented yet._")
+            lines.append(
+                "_No labs documented yet._"
+            )
+
             lines.append("")
 
             continue
 
-        # Show only latest 2
-        latest_labs = labs[:LATEST_LABS_TO_SHOW]
+        # Only show latest 2
+        latest_labs = labs[
+            :LATEST_LABS_TO_SHOW
+        ]
 
         for lab in latest_labs:
 
-            link = github_link(lab["path"])
+            link = github_link(
+                lab["path"]
+            )
 
             lines.append(
                 f"- [{lab['name']}]({link}/)"
@@ -268,23 +309,29 @@ def generate_platform_labs_section(
 ):
 
     lines = [
+
         LABS_START,
+
         "## 🧪 Labs",
+
         "",
     ]
 
     if not labs:
 
-        lines.append("_No labs documented yet._")
+        lines.append(
+            "_No labs documented yet._"
+        )
 
     else:
 
-        # Only latest 2 labs
-        latest_labs = labs[:LATEST_LABS_TO_SHOW]
+        # Latest 2 labs only
+        latest_labs = labs[
+            :LATEST_LABS_TO_SHOW
+        ]
 
         for lab in latest_labs:
 
-            # Link must be relative to platform README
             relative = lab["path"].relative_to(
                 platform_folder
             )
@@ -299,13 +346,14 @@ def generate_platform_labs_section(
             )
 
     lines.append("")
+
     lines.append(LABS_END)
 
     return "\n".join(lines)
 
 
 # ============================================================
-# MAIN README
+# UPDATE ROOT README
 # ============================================================
 
 def update_root_readme(all_labs):
@@ -314,14 +362,15 @@ def update_root_readme(all_labs):
 
     if not readme.exists():
 
-        print("ERROR: Root README.md not found.")
-
-        return
+        raise RuntimeError(
+            "Root README.md was not found."
+        )
 
     content = readme.read_text(
         encoding="utf-8"
     )
 
+    # Count labs
     counts = {
         platform: len(labs)
         for platform, labs in all_labs.items()
@@ -329,18 +378,30 @@ def update_root_readme(all_labs):
 
     # Update progress
     content = replace_section(
+
         content,
+
         PROGRESS_START,
+
         PROGRESS_END,
-        generate_progress_section(counts),
+
+        generate_progress_section(
+            counts
+        ),
     )
 
     # Update labs
     content = replace_section(
+
         content,
+
         LABS_START,
+
         LABS_END,
-        generate_root_labs_section(all_labs),
+
+        generate_root_labs_section(
+            all_labs
+        ),
     )
 
     readme.write_text(
@@ -348,11 +409,13 @@ def update_root_readme(all_labs):
         encoding="utf-8",
     )
 
-    print("✓ Updated root README.md")
+    print(
+        "✓ Updated root README.md"
+    )
 
 
 # ============================================================
-# PLATFORM README
+# UPDATE PLATFORM README
 # ============================================================
 
 def update_platform_readme(
@@ -360,15 +423,19 @@ def update_platform_readme(
     labs,
 ):
 
-    platform_folder = ROOT / platform_key
+    platform_folder = (
+        ROOT / platform_key
+    )
 
-    readme = platform_folder / "README.md"
+    readme = (
+        platform_folder / "README.md"
+    )
 
     if not readme.exists():
 
         print(
-            f"⚠ Skipping {platform_key}: "
-            f"README.md does not exist."
+            f"⚠ {platform_key}/README.md "
+            "not found - skipped."
         )
 
         return
@@ -378,9 +445,13 @@ def update_platform_readme(
     )
 
     content = replace_section(
+
         content,
+
         LABS_START,
+
         LABS_END,
+
         generate_platform_labs_section(
             platform_folder,
             labs,
@@ -393,7 +464,8 @@ def update_platform_readme(
     )
 
     print(
-        f"✓ Updated {platform_key}/README.md"
+        f"✓ Updated "
+        f"{platform_key}/README.md"
     )
 
 
@@ -404,55 +476,80 @@ def update_platform_readme(
 def main():
 
     print("")
-    print("========================================")
-    print("   Cybersecurity Lab README Generator")
-    print("========================================")
+    print(
+        "========================================"
+    )
+    print(
+        "   Cybersecurity Lab README Generator"
+    )
+    print(
+        "========================================"
+    )
     print("")
 
     all_labs = {}
 
     # --------------------------------------------------------
-    # Scan EACH platform independently
+    # SCAN EACH PLATFORM SEPARATELY
     # --------------------------------------------------------
 
-    for platform_key in PLATFORMS:
+    for platform_key, platform_name in PLATFORMS.items():
 
-        platform_folder = ROOT / platform_key
+        platform_folder = (
+            ROOT / platform_key
+        )
 
-        labs = find_labs(platform_folder)
+        labs = find_labs(
+            platform_folder
+        )
 
-        all_labs[platform_key] = labs
+        all_labs[
+            platform_key
+        ] = labs
 
         print(
-            f"{PLATFORMS[platform_key]}: "
+            f"{platform_name}: "
             f"{len(labs)} documented labs"
         )
 
     print("")
 
     # --------------------------------------------------------
-    # Update root README
+    # UPDATE ROOT README
     # --------------------------------------------------------
 
-    update_root_readme(all_labs)
+    update_root_readme(
+        all_labs
+    )
 
     # --------------------------------------------------------
-    # Update EACH platform README independently
+    # UPDATE EACH PLATFORM README
     # --------------------------------------------------------
 
     for platform_key in PLATFORMS:
 
         update_platform_readme(
+
             platform_key,
-            all_labs[platform_key],
+
+            all_labs[
+                platform_key
+            ],
         )
 
     print("")
-    print("========================================")
-    print("✓ README generation completed")
-    print("========================================")
+    print(
+        "========================================"
+    )
+    print(
+        "✓ README generation completed"
+    )
+    print(
+        "========================================"
+    )
     print("")
 
 
 if __name__ == "__main__":
+
     main()
