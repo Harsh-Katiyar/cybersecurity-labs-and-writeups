@@ -42,10 +42,10 @@ This repository is my public learning journal and technical knowledge base as I 
 
 | **Platform** | **Completed Labs** |
 | ------------ | -----------------: |
-| TryHackMe | 0 |
+| TryHackMe | 1 |
 | Hack The Box | 0 |
 | LetsDefend | 0 |
-| Other | 0 |
+| Other | 1 |
 
 *Automatically updated from documented labs in this repository.*
 <!-- AUTO-GENERATED:LAB-PROGRESS:END -->
@@ -57,7 +57,7 @@ This repository is my public learning journal and technical knowledge base as I 
 
 ### TryHackMe
 
-_No labs documented yet._
+- [Windows Fundamentals 1](TRYHACKME/Windows-Fundamentals-1/)
 
 ### Hack The Box
 
@@ -69,7 +69,8 @@ _No labs documented yet._
 
 ### Other
 
-_No labs documented yet._
+- [LAB TEMPLATE](OTHER/_LAB-TEMPLATE/)
+
 <!-- AUTO-GENERATED:LABS:END -->
 
 ---

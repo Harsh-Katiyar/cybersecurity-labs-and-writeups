@@ -19,4 +19,5 @@ LAB-NAME/
 ## 🧪 Labs
 
 _No labs documented yet._
+
 <!-- AUTO-GENERATED:LABS:END -->

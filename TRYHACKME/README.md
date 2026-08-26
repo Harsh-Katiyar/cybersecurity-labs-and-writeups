@@ -18,5 +18,6 @@ LAB-NAME/
 <!-- AUTO-GENERATED:LABS:START -->
 ## 🧪 Labs
 
-_No labs documented yet._
+- [Windows Fundamentals 1](Windows-Fundamentals-1/)
+
 <!-- AUTO-GENERATED:LABS:END -->
